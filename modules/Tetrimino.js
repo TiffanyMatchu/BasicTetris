@@ -5,6 +5,9 @@ class Tetrimino {
     this.shape = shape;
     this.shapeArr = [];
   }
+  getShape(){
+    return this.shape;
+  }
   buildShapeArray() {
     switch (this.shape) {
       case "square":
