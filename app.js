@@ -1,5 +1,4 @@
 import { Tetrimino } from "./modules/Tetrimino.js";
-
 let gridArray = [];
 function makeGrid(l, w) {
   let gridDiv = document.getElementById("gameGrid");
@@ -21,13 +20,6 @@ function makeGrid(l, w) {
   }
 }
 
-const tetriminoLine = [
-  [0, 0],
-  [1, 0],
-  [2, 0],
-  [3, 0],
-];
-//need a condition to prevent  0 =< col > grid.width - 1 && 0 =< row > grid.length -1
 function draw(shape) {
   for (let i = 0; i < shape.length; i++) {
     let row = "row" + shape[i][0];
@@ -36,6 +28,7 @@ function draw(shape) {
     box[col].style.backgroundColor = "#6EFCEB";
   }
 }
+
 function undraw(shape) {
   for (let i = 0; i < shape.length; i++) {
     let row = "row" + shape[i][0];
@@ -46,34 +39,57 @@ function undraw(shape) {
 }
 
 const tetriminoSquare = new Tetrimino(13, 0, "square");
-let currentShape = tetriminoSquare.buildShapeArray();
+const tetriminoLine = new Tetrimino(13, 0, "line");
+const tetriminoL = new Tetrimino(13,0,"l");
+let currentShape = tetriminoL;
+let currentShapeArr = currentShape.getShapeArray();
 
-function moveRight() {
-  let temp = currentShape;
-  undraw(currentShape);
-  for (let i = 0; i < temp.length; i++) {
-    let xValue = temp[i][1] + 1;
-    temp[i][1] = xValue;
+function isXOutofBounds() {
+  for (let i = 0; i < currentShapeArr.length; i++) {
+    if (currentShapeArr[i][1] > gridArray[0].length - 1 || currentShapeArr[i][1] < 0) {
+      return true;
+    }
   }
-  draw(currentShape);
+  return false;
+}
+function isYOutOfBounds() {
+  for (let i = 0; i < currentShapeArr.length; i++) {
+    console.log(currentShapeArr[i][0]);
+    if (currentShapeArr[i][0] > gridArray.length-1) {
+      return true;
+    }
+  }
+  return false;
+}
+function moveRight() {
+  currentShape.addXChange(1); //add 1 to x value of current shape object
+  undraw(currentShapeArr); //undraw current shape
+  currentShapeArr = currentShape.getShapeArray(); //get new array values
+  if (isXOutofBounds()) {
+    currentShape.addXChange(-1);
+    currentShapeArr = currentShape.getShapeArray();
+  }
+  draw(currentShapeArr); //draw shape in new location
 }
 function moveLeft() {
-  let temp = currentShape;
-  undraw(currentShape);
-  for (let i = 0; i < temp.length; i++) {
-    let xValue = temp[i][1] - 1;
-    temp[i][1] = xValue;
+  currentShape.addXChange(-1); //minus 1 to x value of current shape object
+  undraw(currentShapeArr); //undraw current shape
+  currentShapeArr = currentShape.getShapeArray(); //get new array values
+  if (isXOutofBounds()) { //checks if x values are out of bounds
+    currentShape.addXChange(1);//puts x back to previous value
+    currentShapeArr = currentShape.getShapeArray();
   }
-  draw(currentShape);
+  draw(currentShapeArr); //draw shape in new location
 }
 function moveDown() {
-  let temp = currentShape;
-  undraw(currentShape);
-  for (let i = 0; i < temp.length; i++) {
-    let xValue = temp[i][0] + 1;
-    temp[i][0] = xValue;
+  currentShape.addYChange(1);
+  undraw(currentShapeArr);
+  currentShapeArr = currentShape.getShapeArray();
+  if (isYOutOfBounds()) {
+    currentShape.addYChange(-1);
+    currentShapeArr = currentShape.getShapeArray();
   }
-  draw(currentShape);
+  draw(currentShapeArr);
 }
 
 //assign functions to keyCodes
@@ -91,5 +107,5 @@ function control(e) {
 document.addEventListener("DOMContentLoaded", () => {
   makeGrid(25, 30);
   document.addEventListener("keyup", control);
-  draw(currentShape);
+  draw(currentShapeArr);
 });
