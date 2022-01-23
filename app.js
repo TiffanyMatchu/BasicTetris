@@ -1,10 +1,12 @@
 import { TetriminoO } from "./modules/TetriminoO.js";
 import { TetriminoI } from "./modules/TetriminoI.js";
 import { TetriminoJ } from "./modules/TetriminoJ.js";
+import { TetriminoL } from "./modules/TetriminoL.js";
 
 const tetriminoO = new TetriminoO(13, 0, "#FAE60C");
 const tetriminoI = new TetriminoI(12, 0, "#22a1f5");
-const tetriminoJ = new TetriminoJ(13,0,"#001cf0");
+const tetriminoJ = new TetriminoJ(13, 0, "#001cf0");
+
 let currentShape = tetriminoJ;
 let currentRotation = currentShape.rotation;
 let currentShapeArr = currentShape.getCoordinates(currentRotation);
@@ -115,5 +117,4 @@ document.addEventListener("DOMContentLoaded", () => {
   currentRotation = currentShape.rotation;
   currentShapeArr = currentShape.getCoordinates(currentRotation);
   draw();
-
 });
