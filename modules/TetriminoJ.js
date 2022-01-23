@@ -35,7 +35,7 @@ class TetriminoJ extends Tetrimino {
       case 3:
         this.shapeCoordinates = [
           [2 + this.yChange, 0 + this.xChange],
-          [ 2+ this.yChange, 1 + this.xChange],
+          [2 + this.yChange, 1 + this.xChange],
           [1 + this.yChange, 1 + this.xChange],
           [0 + this.yChange, 1 + this.xChange],
         ];

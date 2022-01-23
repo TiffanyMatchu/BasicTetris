@@ -6,8 +6,9 @@ import { TetriminoL } from "./modules/TetriminoL.js";
 const tetriminoO = new TetriminoO(13, 0, "#FAE60C");
 const tetriminoI = new TetriminoI(12, 0, "#22a1f5");
 const tetriminoJ = new TetriminoJ(13, 0, "#001cf0");
+const tetriminoL = new TetriminoL(13, 0, "#f07800");
 
-let currentShape = tetriminoJ;
+let currentShape = tetriminoL;
 let currentRotation = currentShape.rotation;
 let currentShapeArr = currentShape.getCoordinates(currentRotation);
 let gridArray = [];
@@ -113,7 +114,7 @@ function control(e) {
 document.addEventListener("DOMContentLoaded", () => {
   makeGrid(25, 30);
   document.addEventListener("keyup", control);
-  currentShape.rotation = 0;
+  currentShape.rotation = 3;
   currentRotation = currentShape.rotation;
   currentShapeArr = currentShape.getCoordinates(currentRotation);
   draw();
