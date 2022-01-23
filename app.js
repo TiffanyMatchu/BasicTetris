@@ -3,14 +3,18 @@ import { TetriminoI } from "./modules/TetriminoI.js";
 import { TetriminoJ } from "./modules/TetriminoJ.js";
 import { TetriminoL } from "./modules/TetriminoL.js";
 import { TetriminoS } from "./modules/TetriminoS.js";
+import { TetriminoZ } from "./modules/TetriminoZ.js";
+import { TetriminoT } from "./modules/TetriminoT.js";
 
 const tetriminoO = new TetriminoO(13, 0, "#FAE60C");
 const tetriminoI = new TetriminoI(12, 0, "#22a1f5");
 const tetriminoJ = new TetriminoJ(13, 0, "#001cf0");
 const tetriminoL = new TetriminoL(13, 0, "#f07800");
 const tetriminoS = new TetriminoS(13, 0, "#33ed09");
+const tetriminoZ = new TetriminoZ(13, 0, "#ed2630");
+const tetriminoT = new TetriminoT(13, 0, "#8d09e6");
 
-let currentShape = tetriminoS;
+let currentShape = tetriminoT;
 let currentRotation = currentShape.rotation;
 let currentShapeArr = currentShape.getCoordinates(currentRotation);
 let gridArray = [];
@@ -116,8 +120,7 @@ function control(e) {
 document.addEventListener("DOMContentLoaded", () => {
   makeGrid(25, 30);
   document.addEventListener("keyup", control);
-  currentShape.rotation = 0;
-  currentRotation = currentShape.rotation;
-  currentShapeArr = currentShape.getCoordinates(currentRotation);
+  // currentShape.rotation = 3;
+  // currentShapeArr = currentShape.getCoordinates(currentRotation);
   draw();
 });

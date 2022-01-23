@@ -1,19 +1,19 @@
 import { Tetrimino } from "./Tetrimino.js";
 
-class TetriminoS extends Tetrimino {
+class TetriminoT extends Tetrimino {
   constructor(xChange, yChange, color) {
     super(xChange, yChange, color);
     this.rotation = 0;
-    this.shape = "S";
+    this.shape = "T";
   }
   getCoordinates() {
     switch (this.rotation) {
       case 0:
         this.shapeCoordinates = [
+          [0 + this.yChange, 1 + this.xChange],
           [1 + this.yChange, 0 + this.xChange],
           [1 + this.yChange, 1 + this.xChange],
-          [0 + this.yChange, 1 + this.xChange],
-          [0 + this.yChange, 2 + this.xChange],
+          [1 + this.yChange, 2 + this.xChange],
         ];
         break;
       case 1:
@@ -21,20 +21,20 @@ class TetriminoS extends Tetrimino {
           [0 + this.yChange, 1 + this.xChange],
           [1 + this.yChange, 1 + this.xChange],
           [1 + this.yChange, 2 + this.xChange],
-          [2 + this.yChange, 2 + this.xChange],
+          [2 + this.yChange, 1 + this.xChange],
         ];
         break;
       case 2:
         this.shapeCoordinates = [
-          [1 + this.yChange, 2 + this.xChange],
+          [1 + this.yChange, 0 + this.xChange],
           [1 + this.yChange, 1 + this.xChange],
+          [1 + this.yChange, 2 + this.xChange],
           [2 + this.yChange, 1 + this.xChange],
-          [2 + this.yChange, 0 + this.xChange],
         ];
         break;
       case 3:
         this.shapeCoordinates = [
-          [0 + this.yChange, 0 + this.xChange],
+          [0 + this.yChange, 1 + this.xChange],
           [1 + this.yChange, 0 + this.xChange],
           [1 + this.yChange, 1 + this.xChange],
           [2 + this.yChange, 1 + this.xChange],
@@ -46,4 +46,4 @@ class TetriminoS extends Tetrimino {
     return this.shapeCoordinates;
   }
 }
-export { TetriminoS };
+export { TetriminoT };
