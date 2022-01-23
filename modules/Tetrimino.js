@@ -1,49 +1,34 @@
 class Tetrimino {
-  constructor(xChange, yChange, shape) {
+  constructor(xChange, yChange, color,shape) {
     this.xChange = xChange;
     this.yChange = yChange;
     this.shape = shape;
-    this.shapeArr = [];
+    this.shapeCoordinates = [];
+    this.color = color;
   }
   getShape() {
     return this.shape;
   }
-  getShapeArray() {
-    switch (this.shape) {
-      case "square":
-        this.shapeArr = [
-          [0 + this.yChange, 0 + this.xChange],
-          [0 + this.yChange, 1 + this.xChange],
-          [1 + this.yChange, 0 + this.xChange],
-          [1 + this.yChange, 1 + this.xChange],
-        ];
-        break;
-      case "line":
-        this.shapeArr = [
-          [0 + this.yChange, 0 + this.xChange],
-          [1 + this.yChange, 0 + this.xChange],
-          [2 + this.yChange, 0 + this.xChange],
-          [3 + this.yChange, 0 + this.xChange],
-        ];
-        break;
-      case "l":
-         this.shapeArr = [
-           [0 + this.yChange, 0 + this.xChange],
-           [1 + this.yChange, 0 + this.xChange],
-           [2 + this.yChange, 0 + this.xChange],
-           [2 + this.yChange, 1 + this.xChange],
-         ];
-         break;
-      default:
-        break;
-    }
-    return this.shapeArr;
+  getShapeCoordinates() {
+    return this.shapeCoordinates;
+  }
+  getColor() {
+    return this.color;
+  }
+  getCoordinates(rotation) {
+    //      this.shapeCoordinates = [
+    //        [0 + this.yChange, 0 + this.xChange],
+    //        [1 + this.yChange, 0 + this.xChange],
+    //        [2 + this.yChange, 0 + this.xChange],
+    //        [2 + this.yChange, 1 + this.xChange],
+ 
+    return this.shapeCoordinates;
   }
   addXChange(x) {
     return (this.xChange += x);
   }
-  addYChange(y){
-    return this.yChange += y;
+  addYChange(y) {
+    return (this.yChange += y);
   }
 }
 export { Tetrimino };

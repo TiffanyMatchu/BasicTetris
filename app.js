@@ -1,4 +1,13 @@
-import { Tetrimino } from "./modules/Tetrimino.js";
+import { TetriminoO } from "./modules/TetriminoO.js";
+import { TetriminoI } from "./modules/TetriminoI.js";
+import { TetriminoJ } from "./modules/TetriminoJ.js";
+
+const tetriminoO = new TetriminoO(13, 0, "#FAE60C");
+const tetriminoI = new TetriminoI(12, 0, "#22a1f5");
+const tetriminoJ = new TetriminoJ(13,0,"#001cf0");
+let currentShape = tetriminoJ;
+let currentRotation = currentShape.rotation;
+let currentShapeArr = currentShape.getCoordinates(currentRotation);
 let gridArray = [];
 function makeGrid(l, w) {
   let gridDiv = document.getElementById("gameGrid");
@@ -20,33 +29,28 @@ function makeGrid(l, w) {
   }
 }
 
-function draw(shape) {
-  for (let i = 0; i < shape.length; i++) {
-    let row = "row" + shape[i][0];
-    let col = shape[i][1];
+function draw() {
+  for (let i = 0; i < currentShapeArr.length; i++) {
+    let row = "row" + currentShapeArr[i][0];
+    let col = currentShapeArr[i][1];
     let box = document.getElementById(row).querySelectorAll(".col");
-    box[col].style.backgroundColor = "#6EFCEB";
+    box[col].style.backgroundColor = currentShape.color;
   }
 }
-
-function undraw(shape) {
-  for (let i = 0; i < shape.length; i++) {
-    let row = "row" + shape[i][0];
-    let col = shape[i][1];
+function undraw() {
+  for (let i = 0; i < currentShapeArr.length; i++) {
+    let row = "row" + currentShapeArr[i][0];
+    let col = currentShapeArr[i][1];
     let box = document.getElementById(row).querySelectorAll(".col");
     box[col].style.backgroundColor = "#EBEBEB";
   }
 }
-
-const tetriminoSquare = new Tetrimino(13, 0, "square");
-const tetriminoLine = new Tetrimino(13, 0, "line");
-const tetriminoL = new Tetrimino(13,0,"l");
-let currentShape = tetriminoL;
-let currentShapeArr = currentShape.getShapeArray();
-
 function isXOutofBounds() {
   for (let i = 0; i < currentShapeArr.length; i++) {
-    if (currentShapeArr[i][1] > gridArray[0].length - 1 || currentShapeArr[i][1] < 0) {
+    if (
+      currentShapeArr[i][1] > gridArray[0].length - 1 ||
+      currentShapeArr[i][1] < 0
+    ) {
       return true;
     }
   }
@@ -54,8 +58,7 @@ function isXOutofBounds() {
 }
 function isYOutOfBounds() {
   for (let i = 0; i < currentShapeArr.length; i++) {
-    console.log(currentShapeArr[i][0]);
-    if (currentShapeArr[i][0] > gridArray.length-1) {
+    if (currentShapeArr[i][0] > gridArray.length - 1) {
       return true;
     }
   }
@@ -64,30 +67,31 @@ function isYOutOfBounds() {
 function moveRight() {
   currentShape.addXChange(1); //add 1 to x value of current shape object
   undraw(currentShapeArr); //undraw current shape
-  currentShapeArr = currentShape.getShapeArray(); //get new array values
+  currentShapeArr = currentShape.getCoordinates(currentRotation); //get new array values
   if (isXOutofBounds()) {
     currentShape.addXChange(-1);
-    currentShapeArr = currentShape.getShapeArray();
+    currentShapeArr = currentShape.getCoordinates(currentRotation);
   }
   draw(currentShapeArr); //draw shape in new location
 }
 function moveLeft() {
   currentShape.addXChange(-1); //minus 1 to x value of current shape object
   undraw(currentShapeArr); //undraw current shape
-  currentShapeArr = currentShape.getShapeArray(); //get new array values
-  if (isXOutofBounds()) { //checks if x values are out of bounds
-    currentShape.addXChange(1);//puts x back to previous value
-    currentShapeArr = currentShape.getShapeArray();
+  currentShapeArr = currentShape.getCoordinates(currentRotation); //get new array values
+  if (isXOutofBounds()) {
+    //checks if x values are out of bounds
+    currentShape.addXChange(1); //puts x back to previous value
+    currentShapeArr = currentShape.getCoordinates(currentRotation);
   }
   draw(currentShapeArr); //draw shape in new location
 }
 function moveDown() {
   currentShape.addYChange(1);
   undraw(currentShapeArr);
-  currentShapeArr = currentShape.getShapeArray();
+  currentShapeArr = currentShape.getCoordinates(currentRotation);
   if (isYOutOfBounds()) {
     currentShape.addYChange(-1);
-    currentShapeArr = currentShape.getShapeArray();
+    currentShapeArr = currentShape.getCoordinates(currentRotation);
   }
   draw(currentShapeArr);
 }
@@ -107,5 +111,9 @@ function control(e) {
 document.addEventListener("DOMContentLoaded", () => {
   makeGrid(25, 30);
   document.addEventListener("keyup", control);
-  draw(currentShapeArr);
+  currentShape.rotation = 0;
+  currentRotation = currentShape.rotation;
+  currentShapeArr = currentShape.getCoordinates(currentRotation);
+  draw();
+
 });
