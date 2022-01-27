@@ -9,15 +9,17 @@ import { TetriminoT } from "./modules/TetriminoT.js";
 let currentShape;
 let currentShapeArr;
 let timerId;
-let gridArray = [];
+let numberRows = 24;
+let numberCols = 16;
+let shapeStartingX = (numberCols/2) - 1;
 
-const tetriminoO = new TetriminoO(13, 0, "#FAE60C");
-const tetriminoI = new TetriminoI(12, 0, "#22a1f5");
-const tetriminoJ = new TetriminoJ(13, 0, "#001cf0");
-const tetriminoL = new TetriminoL(13, 0, "#f07800");
-const tetriminoS = new TetriminoS(13, 0, "#33ed09");
-const tetriminoZ = new TetriminoZ(13, 0, "#ed2630");
-const tetriminoT = new TetriminoT(13, 0, "#8d09e6");
+const tetriminoO = new TetriminoO(shapeStartingX, 0, "#FAE60C");
+const tetriminoI = new TetriminoI(shapeStartingX, 0, "#22a1f5");
+const tetriminoJ = new TetriminoJ(shapeStartingX, 0, "#001cf0");
+const tetriminoL = new TetriminoL(shapeStartingX, 0, "#f07800");
+const tetriminoS = new TetriminoS(shapeStartingX, 0, "#33ed09");
+const tetriminoZ = new TetriminoZ(shapeStartingX, 0, "#ed2630");
+const tetriminoT = new TetriminoT(shapeStartingX, 0, "#8d09e6");
 
 const allTetrimons = [
   tetriminoO,
@@ -37,7 +39,7 @@ function getRandomShape(min, max) {
 }
 function startCurrentShape() {
   currentShape = getRandomShape(0, allTetrimons.length - 1);
-  currentShape.xChange = 13; //reset x and y for new shapes
+  currentShape.xChange = shapeStartingX; //reset x and y for new shapes
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
 }
@@ -56,8 +58,6 @@ function makeGrid(l, w) {
       col.className = "col";
       currentRow.appendChild(col);
     }
-    let rowString = "#" + rowID + " div";
-    gridArray.push(Array.from(document.querySelectorAll(rowString)));
   }
 }
 
@@ -82,9 +82,9 @@ function undraw() {
 function isOutOfBounds() {
   for (let i = 0; i < currentShapeArr.length; i++) {
     if (
-      currentShapeArr[i][1] > gridArray[0].length - 1 ||
+      currentShapeArr[i][1] > numberCols - 1 ||
       currentShapeArr[i][1] < 0 ||
-      currentShapeArr[i][0] > gridArray.length - 1
+      currentShapeArr[i][0] > numberRows - 1
     ) {
       return true;
     }
@@ -187,5 +187,5 @@ document.getElementById("start-button").addEventListener("click", () => {
 });
 document.addEventListener("keyup", control);
 document.addEventListener("DOMContentLoaded", () => {
-  makeGrid(25, 30);
+  makeGrid(24, 16);
 });

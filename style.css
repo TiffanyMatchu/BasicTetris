@@ -8,7 +8,7 @@
 }
 
 .grid {
-    width: 660px;
+    width: min-content;
     height: auto;
     display: flex;
     flex-direction: column;
