@@ -105,7 +105,7 @@ function moveLeft() {
   currentShape.addXChange(-1); //minus 1 to x value of current shape object
   undraw(currentShapeArr); //undraw current shape
   currentShapeArr = currentShape.getCoordinates(); //get new array values
-  if (isOutOfBounds()|| isTaken()) {
+  if (isOutOfBounds() || isTaken()) {
     //checks if x values are out of bounds
     currentShape.addXChange(1); //puts x back to previous value
     currentShapeArr = currentShape.getCoordinates();
@@ -122,12 +122,13 @@ function moveDown() {
     currentShapeArr = currentShape.getCoordinates();
     draw(currentShapeArr);
     startCurrentShape();
-  } if(isTaken()){
+  }
+  if (isTaken()) {
     currentShape.addYChange(-1);
     currentShapeArr = currentShape.getCoordinates();
     draw(currentShapeArr);
     startCurrentShape();
-  }else {
+  } else {
     draw(currentShapeArr);
   }
 }
@@ -139,7 +140,7 @@ function rotate() {
   }
   undraw();
   currentShapeArr = currentShape.getCoordinates();
-  if (isOutOfBounds() === true || isYOutOfBounds() === true) {
+  if (isOutOfBounds() || isTaken()) {
     currentShape.rotation = previousRotation;
     currentShapeArr = currentShape.getCoordinates();
   }
@@ -147,13 +148,13 @@ function rotate() {
 }
 function isTaken() {
   for (let i = 0; i < currentShapeArr.length; i++) {
-   let row = "row" + currentShapeArr[i][0];
-   console.log(row);
-   let col = currentShapeArr[i][1];
-   let rowChildren = document.getElementById(row).querySelectorAll(".col");
-   if (rowChildren[col].className === "taken col") {
-     return true;
-   }
+    let row = "row" + currentShapeArr[i][0];
+    console.log(row);
+    let col = currentShapeArr[i][1];
+    let rowChildren = document.getElementById(row).querySelectorAll(".col");
+    if (rowChildren[col].className === "taken col") {
+      return true;
+    }
   }
   return false;
 }
