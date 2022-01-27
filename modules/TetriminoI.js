@@ -6,8 +6,8 @@ class TetriminoI extends Tetrimino {
     this.rotation = 1;
     this.shape = "I"; //aka Line
   }
-  getCoordinates(rotation) {
-    switch (rotation) {
+  getCoordinates() {
+    switch (this.rotation) {
       case 0:
         this.shapeCoordinates = [
           [1 + this.yChange, 0 + this.xChange],

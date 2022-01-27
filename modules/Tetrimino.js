@@ -16,12 +16,6 @@ class Tetrimino {
     return this.color;
   }
   getCoordinates(rotation) {
-    //      this.shapeCoordinates = [
-    //        [0 + this.yChange, 0 + this.xChange],
-    //        [1 + this.yChange, 0 + this.xChange],
-    //        [2 + this.yChange, 0 + this.xChange],
-    //        [2 + this.yChange, 1 + this.xChange],
- 
     return this.shapeCoordinates;
   }
   addXChange(x) {
