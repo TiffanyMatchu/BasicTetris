@@ -79,20 +79,13 @@ function undraw() {
     box[col].className = "col"; //undos taken if shape occupys it
   }
 }
-function isXOutofBounds() {
+function isOutOfBounds() {
   for (let i = 0; i < currentShapeArr.length; i++) {
     if (
       currentShapeArr[i][1] > gridArray[0].length - 1 ||
-      currentShapeArr[i][1] < 0
+      currentShapeArr[i][1] < 0 ||
+      currentShapeArr[i][0] > gridArray.length - 1
     ) {
-      return true;
-    }
-  }
-  return false;
-}
-function isYOutOfBounds() {
-  for (let i = 0; i < currentShapeArr.length; i++) {
-    if (currentShapeArr[i][0] > gridArray.length - 1) {
       return true;
     }
   }
@@ -102,7 +95,7 @@ function moveRight() {
   currentShape.addXChange(1); //add 1 to x value of current shape object
   undraw(currentShapeArr); //undraw current shape
   currentShapeArr = currentShape.getCoordinates(); //get new array values
-  if (isXOutofBounds() || isTaken()) {
+  if (isOutOfBounds() || isTaken()) {
     currentShape.addXChange(-1);
     currentShapeArr = currentShape.getCoordinates();
   }
@@ -112,7 +105,7 @@ function moveLeft() {
   currentShape.addXChange(-1); //minus 1 to x value of current shape object
   undraw(currentShapeArr); //undraw current shape
   currentShapeArr = currentShape.getCoordinates(); //get new array values
-  if (isXOutofBounds()|| isTaken()) {
+  if (isOutOfBounds()|| isTaken()) {
     //checks if x values are out of bounds
     currentShape.addXChange(1); //puts x back to previous value
     currentShapeArr = currentShape.getCoordinates();
@@ -123,9 +116,10 @@ function moveDown() {
   currentShape.addYChange(1);
   undraw(currentShapeArr);
   currentShapeArr = currentShape.getCoordinates();
-  if (isYOutOfBounds()) {//if reaches bottom of grid
+  if (isOutOfBounds()) {
+    //if reaches bottom of grid
     currentShape.addYChange(-1);
-    currentShapeArr = currentShape.getCoordinates(); 
+    currentShapeArr = currentShape.getCoordinates();
     draw(currentShapeArr);
     startCurrentShape();
   } if(isTaken()){
@@ -145,7 +139,7 @@ function rotate() {
   }
   undraw();
   currentShapeArr = currentShape.getCoordinates();
-  if (isXOutofBounds() === true || isYOutOfBounds() === true) {
+  if (isOutOfBounds() === true || isYOutOfBounds() === true) {
     currentShape.rotation = previousRotation;
     currentShapeArr = currentShape.getCoordinates();
   }
