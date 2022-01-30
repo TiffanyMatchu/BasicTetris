@@ -1,3 +1,9 @@
+body {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     margin: 0;
     padding: 0;
@@ -5,12 +11,30 @@
     height: auto;
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    background-color: #258786;
 }
 
-#middle-col {
+#top-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#middle-row {
     display: flex;
     flex-direction: row;
-    gap: 30px 20px;
+    gap: 0px 20px;
+    justify-content: center;
+}
+
+#game-title {
+    font-family: "Bebas Neue", cursive;
+    font-size: 60px;
+    color: #2a416a;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #ca7558;
+    justify-content: center;
 
 }
 
@@ -20,8 +44,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background-color: #F6F5F5;
-
+    background-color: #2a416a;
 }
 
 .row {
@@ -34,11 +57,30 @@
 .col {
     height: 20px;
     width: 20px;
-    background-color: #EBEBEB;
+    background-color: #305955;
     margin: 1px;
 }
 
 #start-button {
-    width: 50px;
-    height: 50px;
+    align-items: center;
+    background-color: #ca7558;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: "Bebas Neue", cursive;
+    font-size: 20px;
+    height: 48px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }

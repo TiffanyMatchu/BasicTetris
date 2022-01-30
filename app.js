@@ -79,7 +79,7 @@ function undraw() {
     let row = rowNodeChildren[currentShapeArr[i][0]];
     let col = currentShapeArr[i][1];
     let box = row.querySelectorAll(".col");
-    box[col].style.backgroundColor = "#EBEBEB";
+    box[col].style.backgroundColor = "#305955";
     box[col].className = "col"; //undos taken if shape occupys it
   }
 }
