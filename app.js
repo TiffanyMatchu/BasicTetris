@@ -14,6 +14,8 @@ let numberCols = 16;
 let shapeStartingX = numberCols / 2 - 1;
 let gameBoardDiv = document.getElementById("gameGrid");
 let rowsToClear = [];
+let score = 0;
+
 
 const tetriminoO = new TetriminoO(shapeStartingX, 0, "#FAE60C");
 const tetriminoI = new TetriminoI(shapeStartingX, 0, "#22a1f5");
@@ -159,10 +161,10 @@ function rotate() {
 
 function rowsToBeCleared() {
   let maxYValue = Math.max(...currentShapeArr.flat());
-  for (let i = maxYValue; i > maxYValue - 4; i--) {
-    let colList = document
-      .getElementById("row" + i)
-      .querySelectorAll(".taken.col");
+  let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
+  for (let i = maxYValue - 4; i <= maxYValue; i++) {
+    let currenRow = rowNodeChildren[i];
+    let colList = currenRow.querySelectorAll(".taken.col");
     if (colList.length === numberCols) {
       rowsToClear.push(i);
     }
