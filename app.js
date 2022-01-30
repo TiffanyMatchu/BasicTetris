@@ -11,7 +11,9 @@ let currentShapeArr;
 let timerId;
 let numberRows = 24;
 let numberCols = 16;
-let shapeStartingX = (numberCols/2) - 1;
+let shapeStartingX = numberCols / 2 - 1;
+let gameBoardDiv = document.getElementById("gameGrid");
+let rowsToClear = [];
 
 const tetriminoO = new TetriminoO(shapeStartingX, 0, "#FAE60C");
 const tetriminoI = new TetriminoI(shapeStartingX, 0, "#22a1f5");
@@ -37,20 +39,19 @@ function getRandomShape(min, max) {
   let randomShape = Math.floor(Math.random() * (max - min + 1) + min);
   return allTetrimons[randomShape];
 }
-function startCurrentShape() {
+function startNewShape() {
   currentShape = getRandomShape(0, allTetrimons.length - 1);
   currentShape.xChange = shapeStartingX; //reset x and y for new shapes
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
 }
 function makeGrid(l, w) {
-  let gridDiv = document.getElementById("gameGrid");
   for (let i = 0; i < l; i++) {
     let row = document.createElement("div");
     let rowID = "row" + i;
     row.id = rowID;
     row.className = "row";
-    gridDiv.appendChild(row);
+    gameBoardDiv.appendChild(row);
     let currentRow = document.getElementById(rowID);
     for (let j = 0; j < w; j++) {
       let col = document.createElement("div");
@@ -60,21 +61,22 @@ function makeGrid(l, w) {
     }
   }
 }
-
 function draw() {
+  let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   for (let i = 0; i < currentShapeArr.length; i++) {
-    let row = "row" + currentShapeArr[i][0];
+    let row = rowNodeChildren[currentShapeArr[i][0]];
     let col = currentShapeArr[i][1];
-    let box = document.getElementById(row).querySelectorAll(".col");
+    let box = row.querySelectorAll(".col");
     box[col].style.backgroundColor = currentShape.color;
     box[col].className = "taken col"; //sets id to taken if shape occupys it
   }
 }
 function undraw() {
+  let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   for (let i = 0; i < currentShapeArr.length; i++) {
-    let row = "row" + currentShapeArr[i][0];
+    let row = rowNodeChildren[currentShapeArr[i][0]];
     let col = currentShapeArr[i][1];
-    let box = document.getElementById(row).querySelectorAll(".col");
+    let box = row.querySelectorAll(".col");
     box[col].style.backgroundColor = "#EBEBEB";
     box[col].className = "col"; //undos taken if shape occupys it
   }
@@ -86,6 +88,17 @@ function isOutOfBounds() {
       currentShapeArr[i][1] < 0 ||
       currentShapeArr[i][0] > numberRows - 1
     ) {
+      return true;
+    }
+  }
+  return false;
+}
+function isTaken() {
+  for (let i = 0; i < currentShapeArr.length; i++) {
+    let row = "row" + currentShapeArr[i][0];
+    let col = currentShapeArr[i][1];
+    let rowChildren = document.getElementById(row).querySelectorAll(".col");
+    if (rowChildren[col].className === "taken col") {
       return true;
     }
   }
@@ -116,18 +129,15 @@ function moveDown() {
   currentShape.addYChange(1);
   undraw(currentShapeArr);
   currentShapeArr = currentShape.getCoordinates();
-  if (isOutOfBounds()) {
+  if (isOutOfBounds() || isTaken()) {
     //if reaches bottom of grid
     currentShape.addYChange(-1);
     currentShapeArr = currentShape.getCoordinates();
     draw(currentShapeArr);
-    startCurrentShape();
-  }
-  if (isTaken()) {
-    currentShape.addYChange(-1);
-    currentShapeArr = currentShape.getCoordinates();
-    draw(currentShapeArr);
-    startCurrentShape();
+    if (rowsToBeCleared() === true) {
+      clearRows();
+    }
+    startNewShape();
   } else {
     draw(currentShapeArr);
   }
@@ -146,17 +156,50 @@ function rotate() {
   }
   draw();
 }
-function isTaken() {
-  for (let i = 0; i < currentShapeArr.length; i++) {
-    let row = "row" + currentShapeArr[i][0];
-    console.log(row);
-    let col = currentShapeArr[i][1];
-    let rowChildren = document.getElementById(row).querySelectorAll(".col");
-    if (rowChildren[col].className === "taken col") {
-      return true;
+
+function rowsToBeCleared() {
+  let maxYValue = Math.max(...currentShapeArr.flat());
+  for (let i = maxYValue; i > maxYValue - 4; i--) {
+    let colList = document
+      .getElementById("row" + i)
+      .querySelectorAll(".taken.col");
+    if (colList.length === numberCols) {
+      rowsToClear.push(i);
     }
   }
+  if (rowsToClear.length > 0) {
+    return true;
+  }
   return false;
+}
+function clearColColors(row) {
+  let rowNodeChildren = row.querySelectorAll(".col");
+  rowNodeChildren.forEach((element) => {
+    element.style.backgroundColor = "#EBEBEB";
+    element.className = "col";
+  });
+}
+function clearRows() {
+  let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
+  rowsToClear.forEach((element) => {
+    let rowNum = element;
+    let currentRow = rowNodeChildren[rowNum];
+    clearColColors(currentRow);
+    while (rowNum >= 0) {
+      let previousRow;
+      if (rowNum === 0) {
+        previousRow = rowNodeChildren[1];
+      } else {
+        previousRow = rowNodeChildren[rowNum - 1];
+      }
+      gameGrid.insertBefore(currentRow, previousRow);
+      let tempID = currentRow.id;
+      currentRow.id = previousRow.id;
+      previousRow.id = tempID;
+      rowNum--;
+    }
+  });
+  rowsToClear = [];
 }
 //assign functions to keyCodes
 function control(e) {
@@ -174,18 +217,17 @@ function control(e) {
     moveDown();
   }
 }
-
 document.getElementById("start-button").addEventListener("click", () => {
   if (timerId) {
     clearInterval(timerId);
     timerId = null;
   } else {
-    startCurrentShape();
+    startNewShape();
     draw();
     timerId = setInterval(moveDown, 1000);
   }
 });
 document.addEventListener("keyup", control);
 document.addEventListener("DOMContentLoaded", () => {
-  makeGrid(24, 16);
+  makeGrid(numberRows, numberCols);
 });
