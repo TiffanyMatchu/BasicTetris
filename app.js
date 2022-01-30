@@ -15,7 +15,8 @@ let shapeStartingX = numberCols / 2 - 1;
 let gameBoardDiv = document.getElementById("gameGrid");
 let rowsToClear = [];
 let score = 0;
-
+let defaultColColor = "#305955";
+let startButton = document.getElementById("start-button");
 
 const tetriminoO = new TetriminoO(shapeStartingX, 0, "#FAE60C");
 const tetriminoI = new TetriminoI(shapeStartingX, 0, "#22a1f5");
@@ -46,6 +47,14 @@ function startNewShape() {
   currentShape.xChange = shapeStartingX; //reset x and y for new shapes
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
+  if (isTaken()) {
+    draw();
+    clearInterval(timerId);
+    gameBoardDiv.style = "display: none;";
+    startButton.style = "display: none;";
+    document.getElementById("ScoreTag").style = "display: none;";
+    document.getElementById("gameOverIMG").style = "display: inline-block;";
+  }
 }
 function makeGrid(l, w) {
   for (let i = 0; i < l; i++) {
@@ -79,7 +88,7 @@ function undraw() {
     let row = rowNodeChildren[currentShapeArr[i][0]];
     let col = currentShapeArr[i][1];
     let box = row.querySelectorAll(".col");
-    box[col].style.backgroundColor = "#305955";
+    box[col].style.backgroundColor = defaultColColor;
     box[col].className = "col"; //undos taken if shape occupys it
   }
 }
@@ -177,20 +186,22 @@ function rowsToBeCleared() {
 function clearColColors(row) {
   let rowNodeChildren = row.querySelectorAll(".col");
   rowNodeChildren.forEach((element) => {
-    element.style.backgroundColor = "#EBEBEB";
+    element.style.backgroundColor = defaultColColor;
     element.className = "col";
   });
 }
+
 function clearRows() {
+  calculatePoints(rowsToClear.length);
   let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   rowsToClear.forEach((element) => {
     let rowNum = element;
     let currentRow = rowNodeChildren[rowNum];
     clearColColors(currentRow);
-    while (rowNum >= 0) {
+    while (rowNum > -1) {
       let previousRow;
       if (rowNum === 0) {
-        previousRow = rowNodeChildren[1];
+        previousRow = rowNodeChildren[0];
       } else {
         previousRow = rowNodeChildren[rowNum - 1];
       }
@@ -201,7 +212,25 @@ function clearRows() {
       rowNum--;
     }
   });
+  updateScoreSpan();
   rowsToClear = [];
+}
+function calculatePoints(numRows) {
+  switch (numRows) {
+    case 1:
+      return (score += 100);
+    case 2:
+      return (score += 200);
+    case 3:
+      return (score += 300);
+    case 4:
+      return (score += 600);
+    default:
+      break;
+  }
+}
+function updateScoreSpan() {
+  document.getElementById("score").textContent = score;
 }
 //assign functions to keyCodes
 function control(e) {
@@ -219,17 +248,26 @@ function control(e) {
     moveDown();
   }
 }
-document.getElementById("start-button").addEventListener("click", () => {
+
+startButton.addEventListener("click", () => {
   if (timerId) {
+    startButton.innerHTML = "Start";
+    document.removeEventListener("keyup", control);
     clearInterval(timerId);
     timerId = null;
+  } else if (timerId === null) {
+    startButton.innerHTML = "Pause";
+    document.addEventListener("keyup", control);
+    timerId = setInterval(moveDown, 1000);
   } else {
     startNewShape();
     draw();
+    document.addEventListener("keyup", control);
+    startButton.innerHTML = "Pause";
     timerId = setInterval(moveDown, 1000);
   }
 });
-document.addEventListener("keyup", control);
+
 document.addEventListener("DOMContentLoaded", () => {
   makeGrid(numberRows, numberCols);
 });

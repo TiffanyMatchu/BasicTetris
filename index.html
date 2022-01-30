@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="/app.js"></script>
     <title>TETRIS</title>
@@ -14,14 +17,17 @@
   <body>
     <div class="container">
       <div id="top-row">
-      <h1 id = "game-title">TETRIS</h1>
+        <h1 id="game-title">TETRIS</h1>
       </div>
       <div id="middle-row">
         <div class="grid" id="gameGrid"></div>
         <div class="score_container" id="leftPanel">
           <button id="start-button">Start</button>
-          <h3 id="ScoreTag">Score:<span id="score">0</span></h3>
+          <h3 id="ScoreTag">Score: <span id="score">0</span></h3>
         </div>
+        <svg id = "gameOverIMG"width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+          <image href="/imgs/game_over_PNG54.png" height="200" width="200" />
+        </svg>
       </div>
     </div>
   </body>

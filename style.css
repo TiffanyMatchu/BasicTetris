@@ -2,17 +2,15 @@ body {
     display: block;
     margin: 0;
     padding: 0;
+    background-color: #258786;
 }
 
 .container {
-    margin: 0;
-    padding: 0;
     width: auto;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-items: center;
-    background-color: #258786;
 }
 
 #top-row {
@@ -26,6 +24,7 @@ body {
     flex-direction: row;
     gap: 0px 20px;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 #game-title {
@@ -36,6 +35,10 @@ body {
     -webkit-text-stroke-color: #ca7558;
     justify-content: center;
 
+}
+
+#gameOverIMG {
+    display: none;
 }
 
 .grid {
