@@ -9,21 +9,21 @@ import { TetriminoT } from "./modules/TetriminoT.js";
 let currentShape;
 let currentShapeArr;
 let timerId;
-let numberRows = 24;
-let numberCols = 16;
+let numberRows = 20;
+let numberCols = 14;
 let shapeStartingX = numberCols / 2 - 1;
 let gameBoardDiv = document.getElementById("gameGrid");
 let rowsToClear = [];
 let score = 0;
-let defaultColColor = "#305955";
+let defaultColColor = "#a06ab4de";
 let startButton = document.getElementById("start-button");
 
-const tetriminoO = new TetriminoO(shapeStartingX, 0, "#FAE60C");
-const tetriminoI = new TetriminoI(shapeStartingX, 0, "#22a1f5");
-const tetriminoJ = new TetriminoJ(shapeStartingX, 0, "#001cf0");
-const tetriminoL = new TetriminoL(shapeStartingX, 0, "#f07800");
-const tetriminoS = new TetriminoS(shapeStartingX, 0, "#33ed09");
-const tetriminoZ = new TetriminoZ(shapeStartingX, 0, "#ed2630");
+const tetriminoO = new TetriminoO(shapeStartingX, 0, "#FBC740");
+const tetriminoI = new TetriminoI(shapeStartingX, 0, "#FF0BAC");
+const tetriminoJ = new TetriminoJ(shapeStartingX, 0, "#009CDF");
+const tetriminoL = new TetriminoL(shapeStartingX, 0, "#AAE23B");
+const tetriminoS = new TetriminoS(shapeStartingX, 0, "#36D6E7");
+const tetriminoZ = new TetriminoZ(shapeStartingX, 0, "#E6694C");
 const tetriminoT = new TetriminoT(shapeStartingX, 0, "#8d09e6");
 
 const allTetrimons = [
@@ -35,7 +35,7 @@ const allTetrimons = [
   tetriminoZ,
   tetriminoT,
 ];
-
+/*CLEARING MORE THAN ONE ROW TRIGGERS GAME OVER;*/ 
 function getRandomShape(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);

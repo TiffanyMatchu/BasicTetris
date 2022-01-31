@@ -1,8 +1,15 @@
+html {
+    background: url(imgs/pexels-mudassir-ali-3970396.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body {
     display: block;
     margin: 0;
     padding: 0;
-    background-color: #258786;
 }
 
 .container {
@@ -30,9 +37,7 @@ body {
 #game-title {
     font-family: "Bebas Neue", cursive;
     font-size: 60px;
-    color: #2a416a;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #ca7558;
+    color: #db9ef1;
     justify-content: center;
 
 }
@@ -47,30 +52,30 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background-color: #2a416a;
+    background-color: #d39de7a2;
 }
 
 .row {
     display: flex;
     width: auto;
-    height: 20px;
+    height: 25px;
     margin: 1px;
 }
 
 .col {
-    height: 20px;
-    width: 20px;
-    background-color: #305955;
+    height: 25px;
+    width: 25px;
+    background-color: #a06ab4de;
     margin: 1px;
 }
 
 #start-button {
     align-items: center;
-    background-color: #ca7558;
-    border: 2px solid #111;
+    background-color: #FBC740;
+    border: 2px solid #efebf0;
     border-radius: 8px;
     box-sizing: border-box;
-    color: #111;
+    color: #692483de;
     cursor: pointer;
     display: flex;
     font-family: "Bebas Neue", cursive;
@@ -86,4 +91,10 @@ body {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+}
+
+#ScoreTag {
+    font-family: "Bebas Neue", cursive;
+    color: #ca85e4;
+    font-size: 20px;
 }
