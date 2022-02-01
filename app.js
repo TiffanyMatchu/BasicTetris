@@ -47,14 +47,11 @@ function startNewShape() {
   currentShape.xChange = shapeStartingX; //reset x and y for new shapes
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
-  if (isTaken()) {
-    draw();
-    clearInterval(timerId);
-    gameBoardDiv.style = "display: none;";
-    startButton.style = "display: none;";
-    document.getElementById("ScoreTag").style = "display: none;";
-    document.getElementById("gameOverIMG").style = "display: inline-block;";
-  }
+   if (isTaken()) {
+     clearInterval(timerId);
+     draw();
+     document.getElementById("gameOverIMG").style = "display: block;";
+   }
 }
 function makeGrid(l, w) {
   for (let i = 0; i < l; i++) {
@@ -192,6 +189,7 @@ function clearColColors(row) {
 }
 
 function clearRows() {
+  clearInterval(timerId);
   calculatePoints(rowsToClear.length);
   let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   rowsToClear.forEach((element) => {
@@ -214,6 +212,8 @@ function clearRows() {
   });
   updateScoreSpan();
   rowsToClear = [];
+  startNewShape();
+  timerId = setInterval(moveDown, 1000);
 }
 function calculatePoints(numRows) {
   switch (numRows) {
