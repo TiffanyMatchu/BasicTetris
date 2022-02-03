@@ -35,7 +35,7 @@ const allTetrimons = [
   tetriminoZ,
   tetriminoT,
 ];
-/*CLEARING MORE THAN ONE ROW TRIGGERS GAME OVER;*/ 
+
 function getRandomShape(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -48,6 +48,7 @@ function startNewShape() {
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
    if (isTaken()) {
+     console.log(currentShapeArr);
      clearInterval(timerId);
      draw();
      document.getElementById("gameOverIMG").style = "display: block;";
@@ -102,10 +103,11 @@ function isOutOfBounds() {
   return false;
 }
 function isTaken() {
+  let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   for (let i = 0; i < currentShapeArr.length; i++) {
-    let row = "row" + currentShapeArr[i][0];
+    let row = rowNodeChildren[currentShapeArr[i][0]];
     let col = currentShapeArr[i][1];
-    let rowChildren = document.getElementById(row).querySelectorAll(".col");
+    let rowChildren = row.querySelectorAll(".col");
     if (rowChildren[col].className === "taken col") {
       return true;
     }
@@ -189,14 +191,15 @@ function clearColColors(row) {
 }
 
 function clearRows() {
-  clearInterval(timerId);
+  // clearInterval(timerId);
+  // timerId = null;
   calculatePoints(rowsToClear.length);
   let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   rowsToClear.forEach((element) => {
     let rowNum = element;
     let currentRow = rowNodeChildren[rowNum];
     clearColColors(currentRow);
-    while (rowNum > -1) {
+    while (rowNum > 0) {
       let previousRow;
       if (rowNum === 0) {
         previousRow = rowNodeChildren[0];
@@ -213,7 +216,6 @@ function clearRows() {
   updateScoreSpan();
   rowsToClear = [];
   startNewShape();
-  timerId = setInterval(moveDown, 1000);
 }
 function calculatePoints(numRows) {
   switch (numRows) {
