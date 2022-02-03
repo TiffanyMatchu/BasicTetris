@@ -53,6 +53,7 @@ function startNewShape() {
      draw();
      document.getElementById("gameOverIMG").style = "display: block;";
    }
+   draw();
 }
 function makeGrid(l, w) {
   for (let i = 0; i < l; i++) {
@@ -191,8 +192,6 @@ function clearColColors(row) {
 }
 
 function clearRows() {
-  // clearInterval(timerId);
-  // timerId = null;
   calculatePoints(rowsToClear.length);
   let rowNodeChildren = gameBoardDiv.querySelectorAll(".row");
   rowsToClear.forEach((element) => {
@@ -215,7 +214,6 @@ function clearRows() {
   });
   updateScoreSpan();
   rowsToClear = [];
-  startNewShape();
 }
 function calculatePoints(numRows) {
   switch (numRows) {
