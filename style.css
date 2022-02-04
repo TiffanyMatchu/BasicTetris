@@ -22,6 +22,9 @@ body {
 }
 
 #top-row {
+    display: flex;
+    margin: 0;
+    justify-content: center;
     grid-column: 2 / 3;
     grid-row: 1;
     height: 120px;
@@ -38,6 +41,8 @@ body {
 }
 
 #game-title {
+    margin: 0;
+    align-self: center;
     font-family: "Bebas Neue", cursive;
     color: #fbc740;
     letter-spacing: 0.5em;
@@ -87,7 +92,6 @@ body {
     border-radius: 8px;
     box-sizing: border-box;
     color: #692483de;
-    cursor: pointer;
     display: flex;
     font-family: "Bebas Neue", cursive;
     font-size: 20px;
@@ -100,12 +104,12 @@ body {
     text-align: center;
     text-decoration: none;
     user-select: none;
-    -webkit-user-select: none;
+
     touch-action: manipulation;
 }
 
 #ScoreTag {
     font-family: "Bebas Neue", cursive;
     color: #ca85e4;
-    font-size: 20px;
+    font-size: 40px;
 }

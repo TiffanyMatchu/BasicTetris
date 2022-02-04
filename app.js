@@ -23,7 +23,7 @@ const tetriminoI = new TetriminoI(shapeStartingX, 0, "#FF0BAC");
 const tetriminoJ = new TetriminoJ(shapeStartingX, 0, "#009CDF");
 const tetriminoL = new TetriminoL(shapeStartingX, 0, "#AAE23B");
 const tetriminoS = new TetriminoS(shapeStartingX, 0, "#36D6E7");
-const tetriminoZ = new TetriminoZ(shapeStartingX, 0, "#E6694C");
+const tetriminoZ = new TetriminoZ(shapeStartingX, 0, "#FF850F");
 const tetriminoT = new TetriminoT(shapeStartingX, 0, "#8d09e6");
 
 const allTetrimons = [
@@ -47,13 +47,13 @@ function startNewShape() {
   currentShape.xChange = shapeStartingX; //reset x and y for new shapes
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
-   if (isTaken()) {
-     console.log(currentShapeArr);
-     clearInterval(timerId);
-     draw();
-     document.getElementById("gameOverIMG").style = "display: block;";
-   }
-   draw();
+  if (isTaken()) {
+    console.log(currentShapeArr);
+    clearInterval(timerId);
+    draw();
+    document.getElementById("gameOverIMG").style = "display: block;";
+  }
+  draw();
 }
 function makeGrid(l, w) {
   for (let i = 0; i < l; i++) {
