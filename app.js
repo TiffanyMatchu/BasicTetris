@@ -48,7 +48,6 @@ function startNewShape() {
   currentShape.yChange = 0;
   currentShapeArr = currentShape.getCoordinates();
   if (isTaken()) {
-    console.log(currentShapeArr);
     clearInterval(timerId);
     draw();
     document.getElementById("gameOverIMG").style = "display: block;";
@@ -199,16 +198,13 @@ function clearRows() {
     let currentRow = rowNodeChildren[rowNum];
     clearColColors(currentRow);
     while (rowNum > 0) {
-      let previousRow;
+      let rowAbove;
       if (rowNum === 0) {
-        previousRow = rowNodeChildren[0];
+        rowAbove = rowNodeChildren[0];
       } else {
-        previousRow = rowNodeChildren[rowNum - 1];
+        rowAbove = rowNodeChildren[rowNum - 1];
       }
-      gameGrid.insertBefore(currentRow, previousRow);
-      let tempID = currentRow.id;
-      currentRow.id = previousRow.id;
-      previousRow.id = tempID;
+      gameGrid.insertBefore(currentRow, rowAbove);
       rowNum--;
     }
   });
