@@ -257,7 +257,6 @@ startButton.addEventListener("click", () => {
     timerId = setInterval(moveDown, 1000);
   } else {
     startNewShape();
-    draw();
     document.addEventListener("keyup", control);
     startButton.innerHTML = "Pause";
     timerId = setInterval(moveDown, 1000);
