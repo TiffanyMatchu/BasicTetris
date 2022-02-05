@@ -3,7 +3,7 @@ import { Tetrimino } from "./Tetrimino.js";
 class TetriminoI extends Tetrimino {
   constructor(xChange, yChange, color) {
     super(xChange, yChange, color);
-    this.rotation = 1;
+    this.rotation = 0;
     this.shape = "I"; //aka Line
   }
   getCoordinates() {
