@@ -50,6 +50,7 @@ function startNewShape() {
   if (isTaken()) {
     clearInterval(timerId);
     draw();
+    document.removeEventListener("keyup", control);
     document.getElementById("gameOverIMG").style = "display: block;";
   }
   draw();

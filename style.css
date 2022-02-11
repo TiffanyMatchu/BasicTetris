@@ -31,6 +31,7 @@ body {
 }
 
 #middle-row {
+    display: flex;
     grid-column: 2 / 3;
     grid-row: 2 / 6;
 }
@@ -58,8 +59,9 @@ body {
 
 #gameOverIMG {
     display: none;
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
+    position: absolute;
+    align-self: center;
+    
 }
 
 .grid {
